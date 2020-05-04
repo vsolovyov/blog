@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="{{ config.default_language }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="referrer" content="no-referrer">
+
+        <!-- Enable responsiveness on mobile devices-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        {% block title -%}
+        <title>{{ config.title }}</title>
+        <meta property="og:title" content="{{ config.title }}" />
+        <meta name="twitter:title" content="{{ config.title }}" />
+        {%- endblock title %}
+
+        {% block description -%}
+        <meta name="description" content="{{ config.description }}">
+        <meta property="og:description" content="{{ config.description }}">
+        <meta name="twitter:description" content="{{ config.description | truncate(length=200) }}">
+        {%- endblock description %}
+
+        {% block meta -%}
+        <meta property="og:site_name" content="{{ config.title }}" />
+        <meta property="og:url" content="{{ config.base_url }}" />
+        {%- endblock meta %}
+
+        {% block js -%}
+        {% if config.extra.instantpage_enable -%}
+        <script src="{{ get_url(path="js/instantpage.min.js") }}" type="module" defer></script>
+        {%- endif %}
+        {%- endblock js %}
+
+
+        {% block css -%}
+        <link rel="stylesheet" href="{{ get_url(path="base.css") }}" />
+        {%- endblock css %}
+
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path="favicon-32x32.png") }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path="favicon-16x16.png") }}">
+        <link rel='icon' type='image/x-icon' href="{{ get_url(path="favicon.ico") }}" />
+
+        {% if config.generate_rss -%}
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml") }}">
+        {%- endif %}
+
+        {% block extra_head -%}
+        {%- endblock extra_head %}
+
+    </head>
+    <body>
+        <a href="#main" class="skip-link screen-reader-text">Skip to content</a>
+        {% block header -%}
+        <header class="l-header">
+            <h1 class="c-title p-title"><a href="{{ config.base_url }}" class="p-title__link">{{ config.title }}</a></h1>
+        </header>
+        {%- endblock header %}
+
+        <main id="main" class="l-main">
+            {% block content -%}
+            {% if config.extra.biography -%}
+            <p>
+                {{ config.extra.biography | markdown(inline=true) | safe }}
+            </p>
+            {% endif -%}
+
+            {% for page in paginator.pages %}
+            {% if not page.draft %}
+            <article class="c-article p-list-article">
+              <header>
+                <h2 class="c-title c-article__title"><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+              </header>
+            </article>
+            {% endif %}
+            
+            {% endfor %}
+
+            {%- endblock content %}
+        </main>
+
+        <footer class="l-footer">
+            {% block footer -%}
+            <p class="copyright">
+                {% if config.extra.copyright -%}
+                    {{ config.extra.copyright | markdown(inline=true) }}
+                {%- endif %}
+            </p>
+            {%- endblock footer %}
+        </footer>
+
+    </body>
+</html>
