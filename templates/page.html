@@ -6,7 +6,7 @@
 <meta name="twitter:title" content="{{page.title}} | {{config.title}}" />
 {%- endblock title %}
 
-{% block content %}
+{% block content -%}
 <article>
 
     <header>
@@ -27,4 +27,12 @@
     </footer>
 
 </article>
+
+<script>
+if (location.search.match(/\beditor=/)) {
+  var js = document.createElement('script');
+  js.src = "{{ get_url(path="js/editor.js") | safe }}";
+  document.body.appendChild(js);
+}
+</script>
 {%- endblock content %}
