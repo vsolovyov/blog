@@ -3,7 +3,7 @@ title = "ORM database migration tools"
 date = 2020-05-04
 +++
 
-This is a rant mainly about ORM-based migration tools for SQL. 
+This is a rant mainly about ORM-based migration tools for SQL.
 
 Why SQL exactly?  I haven't touched MongoDB world for almost a decade now (what
 a relief). Cassandra never really crossed my way. Any sane team has its own
@@ -11,7 +11,7 @@ Elasticsearch migration tool that's called "create all indices from scratch",
 nothing interesting to say here. The only other database I've ever touched is
 Datomic, and they have [pretty interesting
 things](https://blog.datomic.com/2017/01/the-ten-rules-of-schema-growth.html) to
-say about migrations that I won't touch on.
+say about migrations that I won't comment on.
 
 Anyway, to the topic. Why do ORM-based migration tools exist? Lets look at a
 couple of projects own descriptions for a clue:
@@ -28,20 +28,19 @@ couple of projects own descriptions for a clue:
 > consistent and easy way. They use a Ruby DSL so that you don't have to write
 > SQL by hand, allowing your schema and changes to be database independent.
 
-Looks like there are two purposes for these tools: 
+Looks like there are two purposes for these tools:
 
 * Database independent migrations
-* Automatic and easy migartions when possible
+* Automatic and easy migrations when possible
 
-I've personally used Django migrations (and when it was a separate tool called
-South) and skimmed docs for some other tools: Alembic, RoR migrations,
-Sequelize, TypeORM.
+I've personally used Django migrations and skimmed docs for some other tools:
+Alembic, RoR migrations, Sequelize, TypeORM.
 
 Database independent migrations
 --------
 
 Database independence is certainly useful for some Django-style "apps". They're
-essentialy libraries that define their own models and can update them in new
+essentially libraries that define their own models and can update them in new
 versions. User management libraries come to mind, like
 [django-allauth](https://github.com/pennersr/django-allauth) or
 [python-social-auth](https://github.com/python-social-auth/). Without built-in
@@ -55,7 +54,7 @@ projects they usually get in the way much more than they help.
 The vast majority of web applications and products are run with one database
 ever and don't switch from Oracle to MySQL to PostgreSQL and back.
 
-Automatic and easy migartions 
+Automatic and easy migrations
 -------
 
 These tools strive to generate migrations automatically. The process goes like
@@ -73,7 +72,7 @@ instead of dropping it and creating a new one. Do I really want to avoid writing
 
 Weeks pass, I get more experienced with a tool, remember the command and what
 flags to pass, I learned how to rename this and that, spent some time debugging
-my migrations. Hours and hours on top of simple `ALTER TABLE`.
+my migrations. Hours and hours on top of a simple `ALTER TABLE`.
 
 ### Non-trivial migrations
 
@@ -82,11 +81,11 @@ a combination of creating a couple of fields, filling them with information,
 creating additional indexes, dropping old fields and indexes. In such cases I
 usually open postgres shell to a local DB, open a transaction and then I develop
 a migration like a code in a REPL. `BEGIN`, then create some columns, fill them
-with info, SELECT to check that it's all right. Nope, messed up some CASE in
-UPDATE and dropped like third of relevant information. Not a problem,
+with info, `SELECT` to check that it's all right. Nope, messed up some `CASE` in
+`UPDATE` and dropped like a third of relevant information. Not a problem,
 `ROLLBACK`, paste the working part and try again.
 
-In case of these automatic tools, after I did all that, I have to go read
+In the case of these automatic tools, after I did all that, I have to go read
 their quite massive documentation again, because I forgot some things, and port
 SQL to their syntax. Or should I just drop into raw SQL now? What was the point
 of using the tool from the start?
@@ -94,29 +93,29 @@ of using the tool from the start?
 ### Onboarding new developers
 
 Then we added junior members to the team who didn't yet know SQL well. Easier
-tasks are "automated" by the tool, they only had to read a documentation for a
+tasks are "automated" by the tool, they only had to read documentation for a
 couple of hours instead of learning how to write an actual `ALTER TABLE` in SQL,
 that it can be rolled back inside a transaction, etc.
 
 And now, when juniors are tasked with a bit more complex problem, they
 completely lack skills developing a migration and have a much steeper wall to
 climb. So they sit in front of their computers, staring into documentation for
-hours for what should have been an easy task for now.
+hours for what should have been an approachable task for now.
 
 ### Downgrade migrations
 
 Another thing is that many tools have downgrade migrations. Downgrade migrations
-are a lie! How could I revert a migration that drops a NOT NULL column with some
-data? In case I really need to revert a migration on production I will write
-another forward migration. Which I did exactly zero times in more than ten
-years.
+are a lie! I dropped a column with `NOT NULL` and now what? The migration is
+irreversible now. In case I really need to revert a reversible migration on
+production I will write another forward migration. Which I did exactly zero
+times in more than ten years.
 
-During development I can switch branches that have different schemas, and they
+During development, I can switch branches that have different schemas, and they
 can be incompatible. Of course, then I have to go and do a backward migration
-with ALTER and even delete a line from tracking table. I did that a couple of
+manually and even delete a line from the tracking table. I did that a couple of
 times in the last five years. Could pervasive downgrade migrations save me these
 ten minutes? Doubt it, often such incompatibility stems from irreversible
-changes like dropping NOT NULL column and migration tools will just spew an
+changes like dropping `NOT NULL` column and migration tools will just spew an
 `IrreversibleError`.
 
 So, writing downgrade migrations is another waste of time.
