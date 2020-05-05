@@ -100,7 +100,7 @@ that it can be rolled back inside a transaction, etc.
 And now, when juniors are tasked with a bit more complex problem, they
 completely lack skills developing a migration and have a much steeper wall to
 climb. So they sit in front of their computers, staring into documentation for
-hours for what should have been an approachable task for now.
+hours for what should have been an approachable task now.
 
 ### Downgrade migrations
 
