@@ -120,16 +120,15 @@ changes like dropping `NOT NULL` column and migration tools will just spew an
 
 So, writing downgrade migrations is another waste of time.
 
-### Operations nitpicking
+### Operations
 
 Another minor point is that sometimes migrations run for a loooooong time. Not a
 second or two - it can be many hours on production. I don't want this migration
 to start automatically during my deploy process (my CI will think it died, among
 other things), but it should be a regular part of all migrations, so on local
 developers' installations these migrations just take a usual `make migrate`
-route. It's much more convenient to take a part of a SQL script and run it
-separately, than to take a part of a migration script written in Python and run
-it separately.
+route. It's easier to take a part of a SQL script and run it separately, than to
+take a part of a migration script written in Python and run it separately.
 
 ### Conclusions
 
@@ -141,7 +140,7 @@ While these tools "automate" simplest cases, they make more complex cases much
 harder. Sadly, it's a very common pitfall in Django-land, and I heard that RoR
 is pretty much the same.
 
-I'm personally using a simple tool called
+I personally use a simple tool called
 [Nomad](https://pypi.org/project/nomad/). I think any tool that supports plain
 SQL migrations, has dependencies between migrations and doesn't require to write
 downgrades would be acceptable.

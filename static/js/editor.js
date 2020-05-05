@@ -58,10 +58,13 @@
         var parts = s.split(',');
         var start = deserializePosition(parts[0]);
         var end = deserializePosition(parts[1]);
+        if (start.offset > start.node.length) {
+            return null;
+        }
         var range = document.createRange();
 
         range.setStart(start.node, start.offset);
-        range.setEnd(end.node, end.offset);
+        range.setEnd(end.node, end.offset < end.node.length ? end.offset : end.node.length);
 
         return range;
     }
@@ -138,6 +141,10 @@
         var text = format('Auth: {author}<br>Orig: {text}<br>Said: <b>{comment}</b>', row);
 
         var range = deserializeRange(row.selection);
+        if (range === null) {
+            console.log("Can't render row due to changed offsets", row);
+            return;
+        }
         window.getSelection().addRange(range);
 
         var rects = range.getClientRects();
@@ -168,7 +175,7 @@
             .then(x => x.json())
             .then(x => x.rows && renderComments(x.rows));
     }
-    console.log("Loading", getEditor());
+
     loadData(getEditor());
 
 })(window, 'article > section');
