@@ -1,8 +1,6 @@
 +++
 title = "Unexpected indexes on PostgreSQL 12"
 date = 2020-05-14
-[extra]
-draft = true
 +++
 
 I recently [wrote on
