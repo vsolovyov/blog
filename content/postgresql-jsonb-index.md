@@ -7,27 +7,27 @@ Since time immemorial PostgreSQL supports JSON fields and can even index
 them. By immemorial I mean this functionality was added in versions 9.2 and 9.4
 that are unsupported now. 
 
-I actually perfectly remember the world where PostgreSQL had no JSON support,
-because 9.2 [was released](https://www.postgresql.org/docs/9.2/release-9-2.html)
-in 2012 and before that I worked in a company that used MongoDB (we suffered
+I perfectly remember the world where PostgreSQL had no JSON support because 9.2
+[was released](https://www.postgresql.org/docs/9.2/release-9-2.html) in 2012,
+and before that, I worked in a company that used MongoDB (we suffered
 greatly[<sup id="back1">\[1\]</sup>](#note1)). It was an ample bit of marketing
 for Mongo back then: "you can store any document without tediously defining an
 ungodly schema! You gain so much flexibility!"
 
 Little did we know back then that the world does not work that way, and
 relational SQL databases are actually way more flexible than document-oriented
-DBs, columnar DBs or whatever.[<sup id="back2">\[2\]</sup>](#note2) Because
+DBs, columnar DBs, or whatever.[<sup id="back2">\[2\]</sup>](#note2) Because
 often we don't know what exactly are we going to do with the data, and with
 relational DBs we can lay out the data however seems reasonable, and then add
 indexes to support our use cases. 
 
 In document-oriented DBs you need to lay out your data exactly the way you're
 going to query it later. Or else you'll need to migrate data inside your
-schema-less database to other layout, which is way more cumbersome and
+schema-less database to another layout, which is way more cumbersome and
 error-prone than adding some indexes and JOINs. 
 
 Don't trust me - there is an exceptional talk on [Advanced Design Patterns for
-DynamoDB](https://www.youtube.com/watch?v=HaEPXoXVf2k) by Rick Houlihan,
+DynamoDB](https://www.youtube.com/watch?v=HaEPXoXVf2k) by Rick Houlihan, a
 Principal Technologist at AWS. He explains that and so much more - it's a very
 information-dense presentation with interesting ideas. I found it useful even
 though I don't plan to use DynamoDB nor MongoDB in the near future.
@@ -50,16 +50,16 @@ the ass.
 Story time
 -----
 
-I am a co-founder at [www.prophy.science](https://www.prophy.science/)
-which is a product that can understand, search and recommend scientific papers
-and experts. In order to do that well, we need a collection of all scientific
-papers, and papers are often provided by many different providers with different
-ids. There are [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/) (30M+ articles),
-[PubMed Central](https://www.ncbi.nlm.nih.gov/pmc/) (6M+ articles),
+I am a co-founder at [www.prophy.science](https://www.prophy.science/) which is
+a product that can understand, search and recommend scientific papers and
+experts. To do that well, we need a collection of all scientific papers, and
+papers are often provided by many different providers with different ids. There
+are [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/) (30M+ articles), [PubMed
+Central](https://www.ncbi.nlm.nih.gov/pmc/) (6M+ articles),
 [Crossref](https://www.crossref.org/) (80-100M+),
 [INSPIRE](https://inspirehep.net/), there are preprint servers like
 [arXiv](https://arxiv.org/), [biorXiv](https://www.biorxiv.org/),
-[medRxiv](https://www.medrxiv.org/) and many others. 
+[medRxiv](https://www.medrxiv.org/) and many others.
 
 There is a widespread system of <abbr title="Digital object
 identifier">DOIs</abbr> that are used to persistently identify journal articles,
@@ -68,12 +68,12 @@ of these bibliographic databases predate DOI standard, they have their own
 identifiers. Sometimes they even cross-link their IDs between different
 services, and sometimes they cross-link wrong articles.
 
-Some monitoring services download data from Crossref, Pubmed, PMC and some
-others sources, add them and report that they have 180 millions of articles, 220
-millions or some other bullshit. We strive to merge the same article from
-different sources into one entity with many external identifiers. We called
-these identifiers "origin ids" and stored them in a special `jsonb` column, so
-one row could have a record like this:
+Some monitoring services download data from Crossref, Pubmed, PMC and some other
+sources, add them and report that they have 180 million articles, 220 million,
+or some other bullshit. We strive to merge the same article from different
+sources into one entity with many external identifiers. We called these
+identifiers "origin ids" and stored them in a special `jsonb` column, so one row
+could have a record like this:
 
 ```
 {"pubmed": "3782696", "pmc": "24093010", "doi": "10.3389/fnhum.2013.00489"}
@@ -154,9 +154,9 @@ EXPLAIN ANALYZE
          Index Cond: (origin_ids @> '{"pubmed": "123456"}')
 ```
 
-Supposedly 43 thousands rows for only one filter! And 7.8 million rows are 39
-thousands times more than 200, which is pretty close. At the time I fired these
-queries we had only 43 millions of articles. PostgreSQL [gathers some
+Supposedly 43 thousand rows for only one filter! And 7.8 million rows are 39
+thousand times more than 200, which is pretty close. At the time I fired these
+queries we had only 43 million of articles. PostgreSQL [gathers some
 statistics](https://www.postgresql.org/docs/current/planner-stats.html) about
 values in different columns to be able to produce reasonable query plans, and
 looks like it's shooting blanks for this column.
@@ -165,7 +165,7 @@ What's the simplest fix? Oftentimes
 [`ANALYZE`](https://www.postgresql.org/docs/current/sql-analyze.html) on a table
 is enough to fix broken statistics, but this time it didn't help at
 all. Sometimes it's useful to adjust how many rows are analyzed to gather
-statistics, and it can be adjusted down to per-column basis with [`ALTER TABLE
+statistics, and it can be adjusted down to a per-column basis with [`ALTER TABLE
 ... ALTER COLUMN ... SET
 STATISTICS`](https://www.postgresql.org/docs/current/sql-altertable.html), but
 here it had no effect as well.
@@ -196,12 +196,11 @@ contsel(PG_FUNCTION_ARGS)
 }
 ```
 
-0.001? That looks exactly like the ratio between 43 millions rows in the table
-and estimated 43 thousands rows in result. However, if we just multiply 43
-thousands by 200 filters we should get 8.6 millions, and PostgreSQL estimated
-only 7.8M. This discrepancy bothered me for a minute, because I like to
-understand things completely, so they won't set me up for unpleasant surprise
-later.
+0.001? That looks exactly like the ratio between 43 million rows in the table
+and an estimated 43 thousand rows in the result. However, if we just multiply 43
+thousand by 200 filters we should get 8.6 million, and PostgreSQL estimated only
+7.8M. This discrepancy bothered me for a minute because I like to understand
+things completely, so they won't set me up for an unpleasant surprise later.
 
 After a minute of contemplating the difference I realized that it's probability
 in play - PostgreSQL thinks that every filter can match 0.1% of the total number
@@ -211,17 +210,17 @@ of rows and they can overlap. The actual math is:
 1 - 0.999 ** 200 = 1 - 0.819 = 0.181
 ```
 
-18.1% of 43 millions is 7.8 millions (I'm rounding numbers here). Itch scratched
+18.1% of 43 million is 7.8 million (I'm rounding numbers here). Itch scratched
 successfully.
 
 And, depending on the [different
 costs](https://www.postgresql.org/docs/current/runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS)
-of various factors in config, Postgres will select either sequential scan or
+of various factors in the config, Postgres will select either sequential scan or
 will use an index. Our first solution was to slice these filters into batches
 with no more than 150 of them per query. It worked quite well for a couple of
 years.
 
-Domain modelling failure
+Domain modeling failure
 ------
 
 Until we learned that one article could have more than one such external
@@ -246,9 +245,9 @@ We had two options:
   
   Both can be queried with `@>`, but it's getting even more uglier than it was.
   
-We actually ended up doing kind of both - we created a separate table that's
-much easier to query with many origin ids at once, and we store a list of pairs
-in a separate non-indexed column so it's convenient to query.
+We ended up doing kind of both - we created a separate table that's much easier
+to query with many origin ids at once, and we store a list of pairs in a
+separate non-indexed column so it's convenient to query.
 
 Separate table speed-up
 --------
@@ -297,7 +296,7 @@ upgraded to it](https://vsevolod.net/postgresql-12-btree/)) and it's called
 [query JIT compilation](https://www.postgresql.org/docs/current/jit.html).
 
 JIT compiler will think the query is massive enough for JITting and will spend
-additional time on it. For my particular test query it spends 150-1500 ms each
+additional time on it. For my particular test query, it spends 150-1500 ms each
 time a query is fired (depends on optimization and inlining). It's 1-10 times
 slower than the slow query, and it's up to 1000 times slower than a fast query
 to a separate table. **1000 times!**
@@ -310,30 +309,30 @@ problem](https://solovyov.net/blog/2020/postgresql-query-jit/)[<sup
 id="back3">\[3\]</sup>](#note3) with JIT compiling a query for more than 13
 seconds for a query that usually executes in 30 ms. Upgrade to PostgreSQL 12
 brought their site down until they turned JIT off. They also had a `jsonb`
-column with an index on it, which inflated estimated rows and cost. However even
-without that part the query was big enough to trigger JIT compilation.
+column with an index on it, which inflated estimated rows and cost. However,
+even without that part, the query was big enough to trigger JIT compilation.
 
-I found the same problem in my code just yesterday, when the query was big
-enough to trigger JIT compilation, but amount of results wasn't big enough so it
-actually slowed things down.
+I found the same problem in my code just yesterday when the query was big and
+complex enough to trigger JIT compilation, but the number of results wasn't big
+enough so it slowed things down instead of speeding up.
 
 I tried to make PostgreSQL cache JITted code with [prepared
 statements](https://www.postgresql.org/docs/current/sql-prepare.html), but I
 wasn't successful. It looked to me like JIT was compiling a query each time I
 fired `EXPLAIN ANALYZE`, even after more than five times to stabilize a query
-plan. I tried to force generic plan for it to cache JITted code, but it still
+plan. I tried to force a generic plan for it to cache JITted code, but it still
 didn't help.
 
 Possible fix
 --------
 
-I don't really know PostgreSQL enough to know how hard it is to add statistics
-for `jsonb` fields. Maybe it's possible to somehow extend `CREATE STATISTICS`,
-or make `@>` to respect `n_distinct` somehow.
+I don't know PostgreSQL internals enough to know how hard it is to add
+statistics for `jsonb` fields. Maybe it's possible to somehow extend `CREATE
+STATISTICS`, or make `@>` to respect `n_distinct` somehow.
 
-With the JIT triggering very expensive compilation for complex queries with a
-small number of rows I think it's best to penalize the cost of enabling JIT on
-the basis of how many nodes[<sup id="back4">\[4\]</sup>](#note4) are there in a
+With the JIT triggering a very expensive compilation for complex queries with a
+small number of rows I think it's best to penalize the cost of enabling JIT
+based on how many nodes[<sup id="back4">\[4\]</sup>](#note4) are there in a
 query plan. [There are
 settings](https://www.postgresql.org/docs/current/jit-decision.html) like
 `jit_above_cost`, and with a setting like `jit_node_cost` decision would be made
@@ -343,7 +342,7 @@ like this:
 jit_above_cost > query_plan_cost + jit_node_cost * query_plan_node_count
 ```
 
-For now I'll just turn JIT off completely in pg_config, and will enable it with
+For now, I'll just turn JIT off completely in pg_config, and will enable it with
 `SET jit = 'on'` only where I know it helps.
 
 
