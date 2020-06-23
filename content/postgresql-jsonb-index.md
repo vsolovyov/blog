@@ -1,8 +1,6 @@
 +++
 title = "Indexing JSONB columns in PostgreSQL"
 date = 2020-06-23
-[extra]
-draft = true
 +++
 
 Since time immemorial PostgreSQL supports JSON fields and can even index
