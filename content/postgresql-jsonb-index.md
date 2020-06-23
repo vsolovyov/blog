@@ -12,9 +12,9 @@ that are unsupported now.
 I actually perfectly remember the world where PostgreSQL had no JSON support,
 because 9.2 [was released](https://www.postgresql.org/docs/9.2/release-9-2.html)
 in 2012 and before that I worked in a company that used MongoDB (we suffered
-greatly[<sup id="back1">\[1\]</sup>](#note1)). It was an ample bit of marketing for Mongo back then: "you can store
-any document without tediously defining an ungodly schema! You gain so much
-flexibility!"
+greatly[<sup id="back1">\[1\]</sup>](#note1)). It was an ample bit of marketing
+for Mongo back then: "you can store any document without tediously defining an
+ungodly schema! You gain so much flexibility!"
 
 Little did we know back then that the world does not work that way, and
 relational SQL databases are actually way more flexible than document-oriented
@@ -25,7 +25,7 @@ indexes to support our use cases.
 
 In document-oriented DBs you need to lay out your data exactly the way you're
 going to query it later. Or else you'll need to migrate data inside your
-schema-less database to other layout, which is much more cumbersome and
+schema-less database to other layout, which is way more cumbersome and
 error-prone than adding some indexes and JOINs. 
 
 Don't trust me - there is an exceptional talk on [Advanced Design Patterns for
@@ -52,7 +52,7 @@ the ass.
 Story time
 -----
 
-I am a co-founder at [https://www.prophy.science/](https://www.prophy.science/)
+I am a co-founder at [www.prophy.science](https://www.prophy.science/)
 which is a product that can understand, search and recommend scientific papers
 and experts. In order to do that well, we need a collection of all scientific
 papers, and papers are often provided by many different providers with different
@@ -202,7 +202,7 @@ contsel(PG_FUNCTION_ARGS)
 and estimated 43 thousands rows in result. However, if we just multiply 43
 thousands by 200 filters we should get 8.6 millions, and PostgreSQL estimated
 only 7.8M. This discrepancy bothered me for a minute, because I like to
-understand things completely, so they won't set me up for unpleasent surprise
+understand things completely, so they won't set me up for unpleasant surprise
 later.
 
 After a minute of contemplating the difference I realized that it's probability
@@ -308,17 +308,42 @@ came out.
 
 My friends had the same problem with JIT compiling a query for more than 13
 seconds for a query that executes in 30 ms. Upgrade to PostgreSQL 12 brought
-their site down until they turned off jit. They also had a `jsonb` column with
-an index on it, which inflated estimated rows and cost, however.
+their site down until they turned JIT off. They also had a `jsonb` column with
+an index on it, which inflated estimated rows and cost. However even without
+that part the query was big enough to trigger JIT compilation.
 
-I tried today to make PostgreSQL cache JITted results with [prepared
+I found the same problem in my code just yesterday, when the query was big
+enough to trigger JIT compilation, but amount of results wasn't big enough so it
+actually slowed things down.
+
+I tried to make PostgreSQL cache JITted code with [prepared
 statements](https://www.postgresql.org/docs/current/sql-prepare.html), but I
-wasn't successful, it looked to me like it was compiling it each time when I
-fire `EXPLAIN ANALYZE`, even if it's more than five times, even if I force
-generic plan.
+wasn't successful. It looked to me like JIT was compiling a query each time I
+fired `EXPLAIN ANALYZE`, even after more than five times to stabilize query
+plan. I tried to force generic plan for it to cache JITted code, but it still
+didn't help.
 
-So I'll just turn JIT off completely in pg_config, and will enable it with `SET
-jit = 'on'` only where I know it helps.
+Possible fix
+--------
+
+I don't really know PostgreSQL enough to know how hard is it to add statistics
+for `jsonb` fields. Maybe it's possible to somehow extend `CREATE STATISTICS`,
+or make `@>` to respect `n_distinct` somehow.
+
+With the JIT triggering very expensive compilation for comlpex queries with a
+small number of rows I think it's best to penalize cost of enabling JIT on the
+basis of how many nodes[<sup id="back3">\[3\]</sup>](#note3) are there in a
+query plan. [There are
+settings](https://www.postgresql.org/docs/current/jit-decision.html) like
+`jit_above_cost`, and with a setting like `jit_node_cost` decision would be made
+like this:
+
+```
+jit_above_cost > query_plan_cost + jit_node_cost * query_plan_node_count
+```
+
+For now I'll just turn JIT off completely in pg_config, and will enable it with
+`SET jit = 'on'` only where I know it helps.
 
 
 #### Notes
@@ -330,3 +355,6 @@ decade later.
 flexible than relational DBs, and I played with it a bit and tend to think it
 really is. However, their main focus is on Datomic Cloud on AWS, and I need
 on-premise, with no additional Cassandra.
+
+[<sup id="note3">\[3\]</sup>](#back3) Are they actually called "nodes"? I'm not
+sure.
