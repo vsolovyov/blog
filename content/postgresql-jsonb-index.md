@@ -1,6 +1,6 @@
 +++
 title = "Indexing JSONB columns in PostgreSQL"
-date = 2020-06-22
+date = 2020-06-23
 [extra]
 draft = true
 +++
@@ -30,8 +30,8 @@ error-prone than adding some indexes and JOINs.
 
 Don't trust me - there is an exceptional talk on [Advanced Design Patterns for
 DynamoDB](https://www.youtube.com/watch?v=HaEPXoXVf2k) by Rick Houlihan,
-Prinicipal Technologist at AWS. He explains that and so much more. It's a very
-information-dense presentation with interesting ideas, I found it useful even
+Principal Technologist at AWS. He explains that and so much more - it's a very
+information-dense presentation with interesting ideas. I found it useful even
 though I don't plan to use DynamoDB nor MongoDB in the near future.
 
 Anyway, JSON support was added into PostgreSQL a long time ago, because
@@ -59,7 +59,7 @@ papers, and papers are often provided by many different providers with different
 ids. There are [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/) (30M+ articles),
 [PubMed Central](https://www.ncbi.nlm.nih.gov/pmc/) (6M+ articles),
 [Crossref](https://www.crossref.org/) (80-100M+),
-[INSPIRE](https://inspirehep.net/), there are pre-print servers like
+[INSPIRE](https://inspirehep.net/), there are preprint servers like
 [arXiv](https://arxiv.org/), [biorXiv](https://www.biorxiv.org/),
 [medRxiv](https://www.medrxiv.org/) and many others. 
 
@@ -71,11 +71,11 @@ identifiers. Sometimes they even cross-link their IDs between different
 services, and sometimes they cross-link wrong articles.
 
 Some monitoring services download data from Crossref, Pubmed, PMC and some
-others, add them and report that they have 180 millions of articles, 220
-millions or some other bullshit. We strive to merge same article from different
-sources into one entity with many external identifiers. We called these
-identifiers "origin ids" and stored them in a special `jsonb` column, so one row
-could have a record like this:
+others sources, add them and report that they have 180 millions of articles, 220
+millions or some other bullshit. We strive to merge the same article from
+different sources into one entity with many external identifiers. We called
+these identifiers "origin ids" and stored them in a special `jsonb` column, so
+one row could have a record like this:
 
 ```
 {"pubmed": "3782696", "pmc": "24093010", "doi": "10.3389/fnhum.2013.00489"}
@@ -141,7 +141,7 @@ EXPLAIN ANALYZE
             (origin_ids @> '{"pubmed": "654321"}') OR   ...x200)
 ```
 
-It does indeed return only 200 rows. Hmmm... Lets check one row:
+It does indeed return only 200 rows. Hmmm... Let's check one row:
 
 ```
 EXPLAIN ANALYZE
@@ -157,7 +157,7 @@ EXPLAIN ANALYZE
 ```
 
 Supposedly 43 thousands rows for only one filter! And 7.8 million rows are 39
-thousands time more than 200, which is pretty close. At the time I fired these
+thousands times more than 200, which is pretty close. At the time I fired these
 queries we had only 43 millions of articles. PostgreSQL [gathers some
 statistics](https://www.postgresql.org/docs/current/planner-stats.html) about
 values in different columns to be able to produce reasonable query plans, and
@@ -241,7 +241,7 @@ We had two options:
   and `origin_id` with two indexes - one on `article_id` and the other on
   `(origin_name, origin_id)`;
   
-- Accomodate many values per key in `jsonb`. Two more possible options here:
+- Accommodate many values per key in `jsonb`. Two more possible options here:
 
   - Many values per key: `{"doi": ["10.26434/3", "10.26434/3.v1"]}`
   - List of pairs: `[["doi", "10.26434/3"], ["doi", "10.26434/3.v1"]]`
@@ -249,16 +249,17 @@ We had two options:
   Both can be queried with `@>`, but it's getting even more uglier than it was.
   
 We actually ended up doing kind of both - we created a separate table that's
-much easier to query with many origin ids at once, and we store list of pairs in
-a separate non-indexed column so it's convenient to query.
+much easier to query with many origin ids at once, and we store a list of pairs
+in a separate non-indexed column so it's convenient to query.
 
 Separate table speed-up
 --------
 
-As a bonus, it's much-much faster to query btree index with lots of filters than
-a GIN one. With a GIN every `@>` turns into a separate Bitmap Index Scan that
-costs approximately millisecond for each (0.7-1.2 ms each if in cache). With a
-btree index on two columns we construct a query that looks like this:
+As a bonus, it's much-much faster to query a btree index with lots of filters
+than a GIN one. With a GIN every `@>` turns into a separate Bitmap Index Scan
+that costs approximately millisecond for each (0.7-1.2 ms each if in
+cache). With a btree index on two columns we construct a query that looks like
+this:
 
 ```
 SELECT article_id FROM articles_origin_ids WHERE
@@ -267,16 +268,16 @@ SELECT article_id FROM articles_origin_ids WHERE
     (origin_name = $5 AND origin_id = ANY($6));
 ```
 
-Accessing btree index is faster even by itself, I get 0.07 ms for Bitmap Index
+Accessing a btree index is faster even by itself, I get 0.07 ms for Bitmap Index
 Scan node in `EXPLAIN ANALYZE` for one `origin_name`, `origin_id` pair. And when
 we fit many origins into one query, the cost of accessing an index (each AND
-turns into separate Bitmap Index Scan) is getting amortized between tens to
+turns into a separate Bitmap Index Scan) is getting amortized between tens to
 hundreds of ids with the same `origin_name`. It can go as low as 0.01 ms (10 µs)
 per `origin_id`. 
 
 That's two orders of magnitude! Thank you very much, I'll take it. If I would
-read something like that in the docs, I would go with separate table right from
-the start.
+read something like that in the docs, I would go with a separate table right
+from the start.
 
 Additional pitfalls
 --------------
@@ -284,7 +285,7 @@ Additional pitfalls
 Current versions of PostgreSQL add new features that can exacerbate these bad
 query plans.
 
-For example, when query is estimated to return millions of rows, it makes
+For example, when a query is estimated to return millions of rows, it makes
 complete sense to fire up parallel workers, but for simple 150 rows - not so
 much. For a test query that I'm running to get concrete numbers for this post,
 I'm getting speed up from 143 ms to 120 ms with parallelization taking 6
@@ -306,11 +307,13 @@ to a separate table. **1000 times!**
 Thankfully, we migrated origin ids to a separate table before PostgreSQL 12 even
 came out.
 
-My friends had the same problem with JIT compiling a query for more than 13
-seconds for a query that executes in 30 ms. Upgrade to PostgreSQL 12 brought
-their site down until they turned JIT off. They also had a `jsonb` column with
-an index on it, which inflated estimated rows and cost. However even without
-that part the query was big enough to trigger JIT compilation.
+My friends had [the same
+problem](https://solovyov.net/blog/2020/postgresql-query-jit/)[<sup
+id="back3">\[3\]</sup>](#note3) with JIT compiling a query for more than 13
+seconds for a query that usually executes in 30 ms. Upgrade to PostgreSQL 12
+brought their site down until they turned JIT off. They also had a `jsonb`
+column with an index on it, which inflated estimated rows and cost. However even
+without that part the query was big enough to trigger JIT compilation.
 
 I found the same problem in my code just yesterday, when the query was big
 enough to trigger JIT compilation, but amount of results wasn't big enough so it
@@ -319,20 +322,20 @@ actually slowed things down.
 I tried to make PostgreSQL cache JITted code with [prepared
 statements](https://www.postgresql.org/docs/current/sql-prepare.html), but I
 wasn't successful. It looked to me like JIT was compiling a query each time I
-fired `EXPLAIN ANALYZE`, even after more than five times to stabilize query
+fired `EXPLAIN ANALYZE`, even after more than five times to stabilize a query
 plan. I tried to force generic plan for it to cache JITted code, but it still
 didn't help.
 
 Possible fix
 --------
 
-I don't really know PostgreSQL enough to know how hard is it to add statistics
+I don't really know PostgreSQL enough to know how hard it is to add statistics
 for `jsonb` fields. Maybe it's possible to somehow extend `CREATE STATISTICS`,
 or make `@>` to respect `n_distinct` somehow.
 
-With the JIT triggering very expensive compilation for comlpex queries with a
-small number of rows I think it's best to penalize cost of enabling JIT on the
-basis of how many nodes[<sup id="back3">\[3\]</sup>](#note3) are there in a
+With the JIT triggering very expensive compilation for complex queries with a
+small number of rows I think it's best to penalize the cost of enabling JIT on
+the basis of how many nodes[<sup id="back4">\[4\]</sup>](#note4) are there in a
 query plan. [There are
 settings](https://www.postgresql.org/docs/current/jit-decision.html) like
 `jit_above_cost`, and with a setting like `jit_node_cost` decision would be made
@@ -356,5 +359,8 @@ flexible than relational DBs, and I played with it a bit and tend to think it
 really is. However, their main focus is on Datomic Cloud on AWS, and I need
 on-premise, with no additional Cassandra.
 
-[<sup id="note3">\[3\]</sup>](#back3) Are they actually called "nodes"? I'm not
+[<sup id="note3">\[3\]</sup>](#back3) Author of that post is not only a friend
+of mine, but my brother as well.
+
+[<sup id="note4">\[4\]</sup>](#back4) Are they actually called "nodes"? I'm not
 sure.
