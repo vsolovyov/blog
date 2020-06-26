@@ -200,7 +200,8 @@ contsel(PG_FUNCTION_ARGS)
 and an estimated 43 thousand rows in the result. However, if we just multiply 43
 thousand by 200 filters we should get 8.6 million, and PostgreSQL estimated only
 7.8M. This discrepancy bothered me for a minute because I like to understand
-things completely, so they won't set me up for an unpleasant surprise later.
+things completely, so they won't set me up for an unpleasant surprise later[<sup
+id="back3">\[3\]</sup>](#note3).
 
 After a minute of contemplating the difference I realized that it's probability
 in play - PostgreSQL thinks that every filter can match 0.1% of the total number
@@ -306,7 +307,7 @@ came out.
 
 My friends had [the same
 problem](https://solovyov.net/blog/2020/postgresql-query-jit/)[<sup
-id="back3">\[3\]</sup>](#note3) with JIT compiling a query for more than 13
+id="back4">\[4\]</sup>](#note4) with JIT compiling a query for more than 13
 seconds for a query that usually executes in 30 ms. Upgrade to PostgreSQL 12
 brought their site down until they turned JIT off. They also had a `jsonb`
 column with an index on it, which inflated estimated rows and cost. However,
@@ -332,7 +333,7 @@ STATISTICS`, or make `@>` to respect `n_distinct` somehow.
 
 With the JIT triggering a very expensive compilation for complex queries with a
 small number of rows I think it's best to penalize the cost of enabling JIT
-based on how many nodes[<sup id="back4">\[4\]</sup>](#note4) are there in a
+based on how many nodes[<sup id="back5">\[5\]</sup>](#note5) are there in a
 query plan. [There are
 settings](https://www.postgresql.org/docs/current/jit-decision.html) like
 `jit_above_cost`, and with a setting like `jit_node_cost` decision would be made
@@ -356,8 +357,24 @@ flexible than relational DBs, and I played with it a bit and tend to think it
 really is. However, their main focus is on Datomic Cloud on AWS, and I need
 on-premise, with no additional Cassandra.
 
-[<sup id="note3">\[3\]</sup>](#back3) Author of that post is not only a friend
+[<sup id="note3">\[3\]</sup>](#back3) After discussion on
+[lobste.rs](https://lobste.rs/s/if87cc/how_not_use_jsonb_fields_their_indexes) I
+understood that it's possible to query PostgreSQL directly to find what `@>` is
+using:
+
+```
+SELECT oprname, typname, oprrest FROM pg_operator op
+    JOIN pg_type typ ON op.oprleft = typ.oid WHERE oprname = '@>';
+```
+
+You'll also see that for `anyarray` types it uses different selectivity method
+[`arraycontsel`](https://github.com/postgres/postgres/blob/7559d8ebfa11d98728e816f6b655582ce41150f3/src/backend/utils/adt/array_selfuncs.c#L238). And
+PostgreSQL gathers statistics for arrays, so `@>` can be a viable choice. Also,
+[arrays support](https://www.postgresql.org/docs/current/functions-array.html)
+`&&` overlap operator that can be handy.
+
+[<sup id="note4">\[4\]</sup>](#back4) Author of that post is not only a friend
 of mine, but my brother as well.
 
-[<sup id="note4">\[4\]</sup>](#back4) Are they actually called "nodes"? I'm not
+[<sup id="note5">\[5\]</sup>](#back5) Are they actually called "nodes"? I'm not
 sure.
