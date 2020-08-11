@@ -349,8 +349,9 @@ For now, I'll just turn JIT off completely in pg_config, and will enable it with
 
 #### Notes
 
-[<sup id="note1">\[1\]</sup>](#back1) They still suffer with MongoDB almost a
-decade later.
+[<sup id="note1">\[1\]</sup>](#back1) Some say they've almost completed
+migration to PostgreSQL and do not suffer anymore. Some say they still suffer
+with what's left almost a decade later.
 
 [<sup id="note2">\[2\]</sup>](#back2) Datomic claims that it's even more
 flexible than relational DBs, and I played with it a bit and tend to think it
