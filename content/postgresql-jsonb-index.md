@@ -1,11 +1,12 @@
 +++
-title = "Indexing JSONB columns in PostgreSQL"
+title = "Pitfalls of JSONB indexes in PostgreSQL"
 date = 2020-06-23
 +++
 
-Since time immemorial PostgreSQL supports JSON fields and can even index
-them. By immemorial I mean this functionality was added in versions 9.2 and 9.4
-that are unsupported now. 
+For a long time PostgreSQL supports JSON fields and can even index them. This
+functionality was added in versions 9.2 and 9.4 that are unsupported now. It's
+older than the oldest JavaScript frameworks that are still actively used, we can
+even call it ancient by current standards.
 
 I perfectly remember the world where PostgreSQL had no JSON support because 9.2
 [was released](https://www.postgresql.org/docs/9.2/release-9-2.html) in 2012,
