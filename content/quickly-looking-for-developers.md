@@ -1,20 +1,18 @@
 +++
 title = "Quickly looking for developers?"
 date = 2020-08-11
-[extra]
-draft = true
 +++
 
 Because there is a significant shortage of experienced developers on the market
-and has been for quite some time, you almost never have a queue of great
-candidates for a newly opened position.
+and has been for quite some time, you rarely have a queue of great candidates
+for a newly opened position.
 
 It’s common for engineers to groan about irrelevant spammy requests from
 clueless recruiters on LinkedIn with “We think you can be a great fit for our
 job opening. You’ll develop our front-end in KubeScript and you need 15 years of
 experience in Kafka”.
 
-This isn’t surprising, given the current market - how much time would an
+This isn’t surprising, given the current market — how much time would an
 experienced developer need to find a job? Not the best and most fulfilling job
 of their life, but just some job with enough compensation to support their
 family.
@@ -65,20 +63,20 @@ pair of pliers, it’s not a job for your friends, general public or
 candidates. It’s your own job.
 
 Even Elon Musk doesn’t just write “I'm hiring developers for a cool project”. He
-describes and markets them, for example:
-[autopilot](https://twitter.com/elonmusk/status/667516705116065792) in
+describes and markets them, for example
+[Tesla autopilot team](https://twitter.com/elonmusk/status/667516705116065792) in
 [2015](https://twitter.com/elonmusk/status/667519445414252544), and
-[neuralink](https://twitter.com/elonmusk/status/1284306733720940544) in
+[Neuralink](https://twitter.com/elonmusk/status/1284306733720940544) in
 [2020](https://twitter.com/elonmusk/status/1284642001888047104).
 
-And everyone knows who Elon Musk is and what he does. I’m baffled every time
-when I see retweets “Looking for a great frontend developer for my project!”
-written by effectively anonymous people to me. I’m seeing the same tweets with
-minor variations pretty regularly for more than a decade.
+And everyone knows who Elon Musk is and what he does. I’m baffled whenever I see
+retweets “Looking for a great frontend developer for my project!”  written by
+effectively anonymous people to me. I’m seeing the same tweets with minor
+variations pretty regularly for more than a decade.
 
 The best thing you can do to have good candidates is to write a good honest
 description of a project together with the tasks that a person will accomplish
-if hired. And it must be you who writes it - a hiring manager, not a poor
+if hired. And it must be you who writes it — a hiring manager, not a poor
 recruiter whom you've given a list of five-to-ten buzzwords.
 
 #### Notes
