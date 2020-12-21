@@ -8,8 +8,8 @@ draft = true
 Some people are not satisfied with a webcam from their notebook or an old webcam
 they bought many years ago.
 
-My brother decided he wants to try streaming. Some people can just start and
-other people want to research all the bits and pieces beforehand. Our chat
+My brother decided he wants to try streaming. Some people can just do a thing
+and other people want to research all the bits and pieces beforehand. Our chat
 history is comparable in length to all my other chats combined, so I learned a
 lot of it as well. The craft is full with small details and inconveniences.
 
@@ -22,7 +22,7 @@ used as a webcam when connected to a USB port. Usually it's possible to buy an
 HDMI-to-USB converter, but his camera can't output a live stream into HDMI, only
 a recorded video.
 
-So we had an idea - maybe it is possible to create a good webcam ourselves. Why
+So we had an idea — maybe it is possible to create a good webcam ourselves. Why
 would anybody need that? Well, it’s almost 2021 now, streaming is still on the
 rise, pandemic is going strong and video meetings are everywhere. People are
 willing to spend some money, as indicated by countless videos on YouTube
@@ -127,7 +127,7 @@ turn off all on-screen info like `1/100s F3.5 ISO 800`, which is useful when
 you're shooting photos and videos through viewfinder, but not so much when
 you're in a video meeting.
 
-Of course, you will have a lot of control over the whole stuff - set a
+Of course, you will have a lot of control over the whole stuff — set a
 diaphragm, get good bokeh, set ISO, set white balance, etc. Do you actually need
 it? Well, some of you do, and a lot of you do not. I learned all that stuff when
 I was 16, but now I’m pretty happy with how my phone chooses everything for me
@@ -147,7 +147,7 @@ that will provide good audio and video quality, on par with current smartphones,
 actually using the same parts. As smartphones are made in tens of millions, all
 relevant parts should be cheap and easily obtainable.
 
-I quickly contacted some people who could help me do the project - firmware
+I quickly contacted some people who could help me do the project — firmware
 engineer, electric engineer and a company that does mechanical design.
 
 What features are needed for a good webcam for streamers and video meetings?
@@ -181,7 +181,7 @@ basically their answer is either “we’ll sell it if you will buy hundreds of
 thousands per year” or silence. Oh, and a lead time (from order to shipment) is
 occasionally 16+ weeks.
 
-I've found suitable System-on-Chips, and it's the same - if we want to have
+I've found suitable System-on-Chips, and it's the same — if we want to have
 hardware 4k encoder, it's either "sorry, it was a demo part and we don't do it",
 or "we have limited support capabilities, so we can only sell if you will buy
 hundreds of thousands, maybe you want some SoMs from our partners?". It is
