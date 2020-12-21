@@ -6,7 +6,7 @@ draft = true
 +++
 
 Some people are not satisfied with a webcam from their notebook or an old webcam
-they've bought many years ago.
+they bought many years ago.
 
 My brother decided he wants to try streaming. Some people can just start and
 other people want to research all the bits and pieces beforehand. Our chat
@@ -14,7 +14,7 @@ history is comparable in length to all my other chats combined, so I learned a
 lot of it as well. The craft is full with small details and inconveniences.
 
 He found that there are basically no good webcams. A lot of the time an image
-quality is meh, and rare presence of 4k is usually not better than 1080p,
+quality is meh, and the rare presence of 4k is usually not better than 1080p,
 because resolution is not quality. Some camera apparently does upscaling from
 1080p to 4k in its driver, indicated by poor quality and high CPU load. He also
 has a really good camera, Fujifilm X-T1. As any other good camera, it can't be
@@ -22,7 +22,7 @@ used as a webcam when connected to a USB port. Usually it's possible to buy an
 HDMI-to-USB converter, but his camera can't output a live stream into HDMI, only
 a recorded video.
 
-So we had idea - maybe it is possible to create a good webcam ourselves. Why
+So we had an idea - maybe it is possible to create a good webcam ourselves. Why
 would anybody need that? Well, it’s almost 2021 now, streaming is still on the
 rise, pandemic is going strong and video meetings are everywhere. People are
 willing to spend some money, as indicated by countless videos on YouTube
@@ -52,13 +52,13 @@ Let's discuss these properties and later how to manufacture it.
 
 If you have a recent MacBook, it provides a decent sound quality with its
 three-mic array. I haven't researched it and don’t know much about other
-notebooks audio quality. If you have a desktop PC, you have to have some
+notebooks' audio quality. If you have a desktop PC, you have to have some
 external mic anyway.
 
 If the web camera has shitty audio quality, you’ll have to buy additional
 gear. When I researched the topic, one of the recently released webcams
 (available from October 2020) with RRP of $180 was producing a sound as if a
-person sits in a big plastic barrel with closed lid. Their voice was very
+person sits in a big plastic barrel with a closed lid. Their voice was very
 muffled with lots of resonant rattles. That level of quality wasn’t acceptable
 10 years ago, how this piece of gear could have been produced in 2020 escapes my
 understanding.
@@ -81,7 +81,7 @@ A lot of what makes a picture great comes from lighting the scene in a correct w
 The simplest thing is to sit in a room so the window is in front of you and the
 Sun isn’t shining into a lens from behind your shoulder.
 
-Webcam cannot provide a decent lighting capabilities by itself, so I won’t spend
+Webcam cannot provide decent lighting capabilities by itself, so I won’t spend
 much time here. There is a webcam by Razer with a built-in LED circle, but it’s
 necessarily small, always shines from a webcam direction and is mostly a
 gimmick.
@@ -104,7 +104,7 @@ with an array of tiny lenses and somehow combine all that into a good image
 quality, but we don't have this tech yet. Any smartphone with a good camera has
 that camera with an ugly protruding lens as a thickest part of the phone.
 
-So, if you want something better than notebook's webcam, you can go get some
+So, if you want something better than a notebook's webcam, you can go get some
 Logitech webcam with an image quality going back to 2012. It’s still better than
 a laptop, but nowhere close to current smartphones.
 
@@ -114,8 +114,8 @@ inconvenient and in some applications doesn’t work at all. For some reason it
 isn’t always presented in applications as an option when choosing a video
 source.
 
-I don’t want to constantly attach, detach, tune position of a small tripod and
-charge my phone. What’s the next option?
+I don’t want to constantly attach, detach, charge my phone and tune the position of
+a small tripod. What’s the next option?
 
 The next option is to just buy a mirrorless photo-camera with a big fat 4/3” or
 even APS-C sensor. It will cost $700+ for a new one (you can buy used for
@@ -153,22 +153,22 @@ engineer, electric engineer and a company that does mechanical design.
 What features are needed for a good webcam for streamers and video meetings?
 Audio: good parts (mics and ADC), good mechanical design and assembly (so
 nothing would rattle), and some post-processing. We certainly want some
-beam-forming capabilities to be able to focus on the person in front of webcam,
-so we will need more than one microphone, maybe up to 4. These parts are easy to
-obtain, there are many in stock, it's not a problem.
+beam-forming capabilities to be able to focus on the person in front of the
+webcam, so we will need more than one microphone, maybe up to 4. These parts are
+easy to obtain, there are many in stock, it's not a problem.
 
 Even if I think that 4k is not needed, I’m pretty sure it’s really a requirement
-to have in an upmarket webcam, as it will be really hard to sell a pricy webcam
+to have in an upmarket webcam, as it will be really hard to sell a pricey webcam
 that can only do 1080p.
 
 Also would be very nice to have some neural network inference on the chip, so we
-can run some AI stuff directly on webcam without bothering a user’s computer
+can run some AI stuff directly on the webcam without bothering a user’s computer
 that can be busy with other things.
 
-I easily found three-piece assembly for iPhone 11 Pro for fifty bucks, two-piece
-from Huawei P40 Pro for twenty five and a one-piece from P40 Lite for ten
-dollars. That’s with lens, and bought in retail. Does it mean it costs peanuts
-(less than $5 for a sensor) to buy in bulk to produce my own webcam?
+I easily found a three-piece assembly for the iPhone 11 Pro for fifty bucks,
+two-piece from a Huawei P40 Pro for twenty five and a one-piece from P40 Lite for
+ten dollars. That’s with a lens, and bought in retail. Does it mean it costs
+peanuts (less than $5 for a sensor) to buy in bulk to produce my own webcam?
 Well... Maybe. I can’t just go and buy a couple thousands of these sensors. I’m
 pretty sure I can buy a couple thousands of replacement parts for phones, but
 sensors themselves are not sold freely. It's easy to buy some "random" sensor
@@ -208,12 +208,12 @@ problem from the wrong angle at the beginning.
 
 The actual problem is not how to build a good web camera. The real question is
 how to sell it in quantity! Is it possible for me to sell hundreds of thousands
-of pricy webcams per year? If I know I will sell it, I can find an investment
+of pricey webcams per year? If I know I will sell it, I can find an investment
 for that.
 
 Let's describe my situation here. I’m a co-founder at prophy.science which is a
 SaaS, and I work on it full-time. I can probably spend 20% of my time on
-something other, but I certainly don’t want to abandon it completely. I also
+something else, but I certainly don’t want to abandon it completely. I also
 have two small beautiful kids, and I really don’t want to move to Shenzhen to
 organize a big production there.
 
@@ -240,15 +240,15 @@ Well, maybe there is, but I don’t see it. Maybe I could pull it off by diving
 deep down and going full-time on the problem for years, but it seems much more
 risky now.
 
-Also I should mention is that this market is basically indefensible. What
+Also I should mention that this market is basically indefensible. What
 prevents established players from doing pretty much the same, when they will see
 that there is a good niche? They just go to the same suppliers, get same or
 better parts/prices and crush a startup using their established distribution
 channels.
 
 I remember a staple phrase from a lot of interviews, something along the lines
-of "If I knew how hard will it be, I wouldn't do it". Here we are, knowing how
-hard will it be, and not doing it.
+of "If I knew how hard it would be, I wouldn't do it". Here we are, knowing how
+hard it will be, and not doing it.
 
 I'm just going back to my SaaS, which is much more defensible, thank you very
 much.
