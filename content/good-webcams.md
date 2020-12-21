@@ -211,11 +211,12 @@ how to sell it in quantity! Is it possible for me to sell hundreds of thousands
 of pricey webcams per year? If I know I will sell it, I can find an investment
 for that.
 
-Let's describe my situation here. I’m a co-founder at prophy.science which is a
-SaaS, and I work on it full-time. I can probably spend 20% of my time on
-something else, but I certainly don’t want to abandon it completely. I also
-have two small beautiful kids, and I really don’t want to move to Shenzhen to
-organize a big production there.
+Let's describe my situation here. I’m a co-founder at
+[prophy.science](https://www.prophy.science/) which is a SaaS, and I work on it
+full-time. I can probably spend 20% of my time on something else, but I
+certainly don’t want to abandon it completely. I also have two small beautiful
+kids, and I really don’t want to move to Shenzhen to organize a big production
+there.
 
 ### Going to market
 
@@ -253,6 +254,14 @@ hard it will be, and not doing it.
 I'm just going back to my SaaS, which is much more defensible, thank you very
 much.
 
+My brother actually [started
+streaming](https://www.youtube.com/playlist?list=PL7gxcNpwRVlp1Xepntn5EiUFo0YjtT8ok),
+so you can go watch him code a [snake game in ClojureScript and
+React](https://www.youtube.com/watch?v=GxxGs1jA-kg&list=PL7gxcNpwRVlp1Xepntn5EiUFo0YjtT8ok&index=1).
+
 Answering the question in title: you can't buy a good webcam because existing
 players seemingly don't think it's a good opportunity, and for newcomers the
 market is hard to enter.
+
+We're also lucky that camera manufacturers added clean live HDMI into
+comparatively cheap cameras, so we don't need to spend $3000+ to set it all up.
