@@ -17,14 +17,13 @@ He found that there are basically no good webcams. A lot of the time an image
 quality is meh, and the rare presence of 4k is usually not better than 1080p,
 because resolution is not quality. Some camera apparently does upscaling from
 1080p to 4k in its driver, indicated by poor quality and high CPU load. He also
-has a really good camera, Fujifilm X-T1. As any other good camera, it can't be
-used as a webcam when connected to a USB port. Usually it's possible to buy an
-HDMI-to-USB converter, but his camera can't output a live stream into HDMI, only
-a recorded video.
+has a really good camera, Fujifilm X-T1. It can't be used as a webcam when
+connected to a USB port. Usually it's possible to buy an HDMI-to-USB converter,
+but his camera can't output a live stream into HDMI, only a recorded video.
 
-So we had an idea — maybe it is possible to create a good webcam ourselves. Why
-would anybody need that? Well, it’s almost 2021 now, streaming is still on the
-rise, pandemic is going strong and video meetings are everywhere. People are
+So we had an idea — maybe it is possible to create a good webcam
+ourselves. Would anybody care? Well, it’s almost 2021 now, streaming is still on
+the rise, pandemic is going strong and video meetings are everywhere. People are
 willing to spend some money, as indicated by countless videos on YouTube
 regarding the problem.
 
@@ -32,7 +31,9 @@ Let’s start with defining what is a good webcam.
 
 A good webcam, in my opinion, is a device that provides a decent sound quality,
 at least on par with recent MacBooks, and an image quality on par with top
-smartphones, such as iPhone 11/12, Huawei P40 Pro, etc.
+smartphones, such as iPhone 11/12, Huawei P40 Pro, etc. As smartphones have a
+good image quality, then we could probably manufacture a webcam from smartphone
+parts that are cheap and easily available. How hard can it be?
 
 If you’ve read at least a couple of articles on the topic of video production,
 you will know that to make quality content from the technical standpoint you
@@ -41,10 +42,6 @@ need three things, in that particular order:
 1. Sound
 2. Light
 3. Video quality
-
-If smartphones have a good image quality, then we could probably manufacture a
-webcam from smartphone parts that are cheap and easily available. How hard can
-it be?
 
 Let's discuss these properties and later how to manufacture it.
 
@@ -64,7 +61,7 @@ muffled with lots of resonant rattles. That level of quality wasn’t acceptable
 understanding.
 
 There are many good enough USB mics for $50+, you also can buy a great XLR
-microphone with $100, but then you’ll need an external sound card with phantom
+microphone for $100, but then you’ll need an external sound card with phantom
 power supply. A decent one can easily cost you $200.
 
 With almost any of these options you’ll have to install and configure some
@@ -82,9 +79,10 @@ The simplest thing is to sit in a room so the window is in front of you and the
 Sun isn’t shining into a lens from behind your shoulder.
 
 Webcam cannot provide decent lighting capabilities by itself, so I won’t spend
-much time here. There is a webcam by Razer with a built-in LED circle, but it’s
-necessarily small, always shines from a webcam direction and is mostly a
-gimmick.
+much time here. There is a [webcam by
+Razer](https://www.razer.com/streaming-cameras/razer-kiyo/RZ19-02320100-R3M1)
+with a built-in LED circle, but it’s necessarily small, always shines from a
+webcam direction and is mostly a gimmick.
 
 We can rely somewhat on the good sensor here. If it provides good dynamic range,
 HDR capabilities and good low-light performance, then a patch of sunlight on the

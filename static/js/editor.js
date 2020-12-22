@@ -101,12 +101,14 @@
     function storeComment() {
         var data = gatherData();
         render(data);
-        fetch(URL, {method: 'POST',
-                    body: JSON.stringify(data)})
-            .then((x) => {
-                console.log(x);
-                render(data);
-            });
+        if (data.comment) {
+            fetch(URL, {method: 'POST',
+                        body: JSON.stringify(data)})
+                .then((x) => {
+                    console.log(x);
+                    render(data);
+                });
+        }
     }
 
     window.addEventListener('keydown', function(e) {
