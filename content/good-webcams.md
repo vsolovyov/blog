@@ -97,12 +97,14 @@ there is no escaping physics. Of course, it's possible to put a webcam into a
 thick part below the lid, but then it'll be useful for expressing anger at our
 colleagues with wide-open nostrils and not much else.
 
+
+
 Maybe some crazy engineer in the future will develop an array of small sensors
 with an array of tiny lenses and somehow combine all that into a good image
 quality, but we don't have this tech yet. Any smartphone with a good camera has
 that camera with an ugly protruding lens as a thickest part of the phone.
 
-So, if you want something better than a notebook's webcam, you can go get some
+So, if you want something better than a notebook's webcam, you can get some
 Logitech webcam with an image quality going back to 2012. It’s still better than
 a laptop, but nowhere close to current smartphones.
 
@@ -116,14 +118,14 @@ I don’t want to constantly attach, detach, charge my phone and tune the positi
 a small tripod. What’s the next option?
 
 The next option is to just buy a mirrorless photo-camera with a big fat 4/3” or
-even APS-C sensor. It will cost $700+ for a new one (you can buy used for
+even APS-C sensor. It will cost $500+ for a new one (you can buy used for
 cheaper). You will also need some gear to hold the camera in place, as it won’t
 just rest on the top of the screen like a regular webcam. You also need an
 HDMI-to-USB video grabber, and you need to be sure that the camera you buy can
 output full resolution live onto that HDMI. Also make sure that it's possible to
 turn off all on-screen info like `1/100s F3.5 ISO 800`, which is useful when
 you're shooting photos and videos through viewfinder, but not so much when
-you're in a video meeting.
+you're in a video meeting. This feature is called "Clean HDMI".
 
 Of course, you will have a lot of control over the whole stuff — set a
 diaphragm, get good bokeh, set ISO, set white balance, etc. Do you actually need
@@ -138,7 +140,7 @@ you need, how to set it all up, and a lot of money too.
 
 So there is a market gap between so-so webcams for $100-200 and a full-blown
 setup with a mirrorless camera, an external mic and lighting panels that will
-cost a grand.
+cost almost a grand or two, if you're so inclined.
 
 I thought that it is a good idea to create an "upmarket" webcam for $250-300
 that will provide good audio and video quality, on par with current smartphones,
@@ -175,9 +177,8 @@ standards, but we need a good one, with good dynamic range, HDR capabilities and
 low-light performance.
 
 I wrote to several vendors asking them what are the prices and conditions, and
-basically their answer is either “we’ll sell it if you will buy hundreds of
-thousands per year” or silence. Oh, and a lead time (from order to shipment) is
-occasionally 16+ weeks.
+basically their answer is either silence or “we’ll sell it if you will buy
+hundreds of thousands per year”.
 
 I've found suitable System-on-Chips, and it's the same — if we want to have
 hardware 4k encoder, it's either "sorry, it was a demo part and we don't do it",
@@ -188,18 +189,22 @@ it's going to be pretty expensive and will be good for a prototype, but for
 production it will blow past our budget. System-on-Module will cost almost the
 same as the web camera itself.
 
-It means I cannot just build five hundred webcams, see how good they are selling
-and build a couple thousands, and so on.
+Oh, and a lead time (from order to shipment) is systematically 16+ weeks. It
+means they have no stock and will place an order at semiconductor foundry, have
+it produced, packaged and sent to customer. Swiftly.
+
+It means I cannot just build five hundred webcams, see how good are they selling
+and build a couple thousand, and so on.
 
 There is also a plastic injection step that requires upfront investment to
-manufacture molds, and of course design and engineering costs. All together it
+manufacture molds, and of course design and engineering costs. All combined it
 was tens of thousands of dollars. I was willing to risk it and was pretty sure
 that in the worst case scenario it would be just a cost of my experience
 building hardware product.
 
-But with this new information it means I would need to pour a million dollars
-(that I don’t have) to manufacture an obscene amount of devices that I don’t
-know how to sell.
+But if I have to commit to a hundred thousand units or more, it means I would
+need to pour millions of dollars (that I don’t have) to manufacture an obscene
+amount of devices that I don’t know how to sell.
 
 I thought about it for a couple of days and understood that I approached the
 problem from the wrong angle at the beginning.
@@ -221,9 +226,9 @@ there.
 Ok, what’s the current size of the market? Luckily, there are public companies
 in the market, so we can go look at their reports to see if there is anything
 meaningful. And there is, Logitech says they have about $130M in revenue from
-sales of PC webcams. That’s... not much? I think they’re the biggest player in
-the market by a long shot, and they sell something like a few millions of
-webcams a year.
+sales of PC webcams. I think they’re the biggest player in the market by a long
+shot, and they sell something like a few millions of webcams a
+year. That’s... not much?
 
 It means that I have to sell like 10% of the Logitech shipment size, right from
 the start.
