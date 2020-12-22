@@ -1,8 +1,6 @@
 +++
 title = "Why can’t you buy a good webcam?"
 date = 2020-12-22
-[extra]
-draft = true
 +++
 
 Some people are not satisfied with a webcam from their notebook or an old webcam
