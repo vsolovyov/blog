@@ -1,15 +1,18 @@
 +++
-title = "On simple anti-fraud"
+title = "Fix your fraud problems with this simple trick"
 date = 2021-01-13
 [extra]
 draft = true
 +++
 
-We have this site with classified ads in Ukraine, [OLX](olx.ua) and it is completely
-plagued with spam and fraud. I create an ad to sell something I don’t need
-anymore, and within a couple of hours I have some stupid fraud in my inbox. What
-baffles me is that it’s very easy and simple to fix, and they do nothing
-to fix that.
+Despite your expectations I’m going to support that cheesy header with a real
+talk! Fraudsters will hate you.
+
+We have this site with classified ads in Ukraine, [OLX](olx.ua) and it is
+completely plagued with spam and fraud. I create an ad to sell something I don’t
+need anymore, and within a couple of hours I have some stupid fraud in my
+inbox. What baffles me is that it’s very easy and simple to fix, and they do
+nothing.
 
 Back in 2006 I was involved in one of the forks of an open source project
 [L2J](https://www.l2jserver.com/) (so-called “server emulator”), which was a
