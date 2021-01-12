@@ -1,8 +1,6 @@
 +++
 title = "Fix your fraud problems with this simple trick"
 date = 2021-01-13
-[extra]
-draft = true
 +++
 
 Despite your expectations I’m going to support that cheesy header with a real
@@ -20,7 +18,7 @@ re-creation of the server part of then-popular game [Lineage
 II](https://en.wikipedia.org/wiki/Lineage_II) of MMORPG genre.
 
 A lot of the servers were plagued with bots (official servers too). There were
-two variants for the bot software - a standalone one that communicated with a
+two variants for the bot software — a standalone one that communicated with a
 server on its own, and another one that controlled an interface of an actual
 client (in-game bot).
 
@@ -28,7 +26,7 @@ In-game bot required much more resources to run (basically, a separate computer
 per bot), so the majority of the problems were created by standalones, you could
 easily run ten of them from a regular computer.
 
-We discussed this problem in a developer chat and had an idea - maybe these
+We discussed this problem in a developer chat and had an idea — maybe these
 standalone bots have some differences while talking to the server? We tried to
 investigate that and indeed, the order of packets was completely different
 between a standalone bot and a regular game client.
@@ -44,7 +42,7 @@ Subversion repository with a completely unsuspicious “small fix” message (op
 source!).
 
 It sounds a lot like security by obscurity, as I’m writing it now. I am not an
-anti-fraud expert, however, it looks like it really is - we need to detect some
+anti-fraud expert, however, it looks like it really is — we need to detect some
 suspicious activities, and then stop them in a way that doesn’t immediately tell
 fraudsters about it. Why? To make “debugging” around our defense a much harder
 problem.
@@ -64,7 +62,7 @@ We could have employed something akin to a shadow ban. Stop bots from interactin
 with other users from time to time. Drop their packets a lot when they’re in a
 battlefield, so they and their party-members end up being killed by mobs.
 
-I don’t think it’s always possible to employ these delayed responses - anything
+I don’t think it’s always possible to employ these delayed responses — anything
 financial and we’re out of luck? I’m not familiar with that field, never worked
 at a bank or a payment processor. Would be interesting to learn a bit about
 that.
@@ -74,7 +72,7 @@ clever shadow ban technique (mark messages as read when a recipient logs in,
 etc) it would eliminate a lot of the fraudulent activity from the platform.
 
 If a fraudster tries this and tries that and there is no apparent benefit and it
-seems like everything works, but people just don’t fall for a scam - will they
+seems like everything works, but people just don’t fall for a scam — will they
 continue to try more and more sophisticated attacks? To a certain extent, later
 they’ll get bored with having no results.
 
@@ -104,6 +102,6 @@ done.
 
 Even Twitter seemingly managed to remove that Bitcoin “ElonMuskque
 giveaways”. What took them so long I don’t understand, but if even Twitter did
-it - you can do it too.
+it — you can do it too.
 
 Just do it.
