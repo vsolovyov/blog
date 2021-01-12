@@ -70,4 +70,37 @@ So, back to classified ads. They could raise their defenses a bit, and with a
 clever shadow ban technique (mark messages as read when a recipient logs in,
 etc) it would eliminate a lot of the fraudulent activity from the platform.
 
-...continue thoughts on how this (de-)incentivizes a fraudster
+If a fraudster tries this and tries that and there is no apparent benefit and it
+seems like everything works, but people just don’t fall for a scam - will they
+continue to try more and more sophisticated attacks? To a certain extent, later
+they’ll get bored with having no results.
+
+We also need good anomaly detection mechanisms. It starts with a good logging
+and monitoring, and with user complaints, just like any other performance
+problem or a bug. Of course, later you can start to employ different machine
+learning techniques, but it shouldn’t be a first step, and you need to do it
+really carefully.
+
+It’s very maddening for legit users to fall prey to some stupid algorithm that
+can be hard to fix. Gather more cases and re-train a model? Maybe employ
+heuristics to fix some corner-cases? In any case, a model's decision should be
+overridable by moderators.
+
+Sometimes people will pierce through your defenses anyway, so you’ll have to
+react quickly, identify new patterns, shadow ban them, etc.
+
+Sometimes it can be fixed by a product change. For example, if there is some
+kind of bonus system, make it so users can spend bonuses only on themselves,
+ship products paid with bonuses to the existing address only (that has a history
+of successful deliveries from given account), etc.
+
+Removing an incentive to fraud is the best strategy.
+
+After running a service for some time you’ll get a grip on how these things are
+done.
+
+Even Twitter seemingly managed to remove that Bitcoin “ElonMuskque
+giveaways”. What took them so long I don’t really understand, but if even
+Twitter did it - you can do it too.
+
+Just do it.
