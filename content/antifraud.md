@@ -1,6 +1,6 @@
 +++
 title = "On simple anti-fraud"
-date = 2021-01-08
+date = 2021-01-13
 [extra]
 draft = true
 +++
@@ -8,8 +8,8 @@ draft = true
 We have this site with classified ads in Ukraine, [OLX](olx.ua) and it is completely
 plagued with spam and fraud. I create an ad to sell something I don’t need
 anymore, and within a couple of hours I have some stupid fraud in my inbox. What
-baffles me is that it’s very easy and simple to fix, and they do not (cannot?)
-do that.
+baffles me is that it’s very easy and simple to fix, and they do nothing
+to fix that.
 
 Back in 2006 I was involved in one of the forks of an open source project
 [L2J](https://www.l2jserver.com/) (so-called “server emulator”), which was a
@@ -22,7 +22,7 @@ server on its own, and another one that controlled an interface of an actual
 client (in-game bot).
 
 In-game bot required much more resources to run (basically, a separate computer
-per bot), so majority of the problems were created by standalones, you could
+per bot), so the majority of the problems were created by standalones, you could
 easily run ten of them from a regular computer.
 
 We discussed this problem in a developer chat and had an idea - maybe these
@@ -36,35 +36,35 @@ banning after some random time online, like 2..5 minutes.
 
 Of course, generally bot developers aimed at official servers and couldn’t care
 less about some anti-bot defense on free emulator servers, so we didn’t spend
-too much brain activity on it. Nevertheless, it was committed into Subversion
-repository with a completely unsuspicious “small fix” message.
+too much brain activity on it. Nevertheless, it was committed into the
+Subversion repository with a completely unsuspicious “small fix” message (open
+source!).
 
-It sounds a lot like security by obscurity, as I’m writing it now. I am totally
-not an anti-fraud expert, however, it looks like it really is - we need to
-detect some suspicious activities, and then stop them in a way that doesn’t
-immediately tell fraudsters about it. Why? To make “debugging” around our
-defense a much harder problem.
+It sounds a lot like security by obscurity, as I’m writing it now. I am not an
+anti-fraud expert, however, it looks like it really is - we need to detect some
+suspicious activities, and then stop them in a way that doesn’t immediately tell
+fraudsters about it. Why? To make “debugging” around our defense a much harder
+problem.
 
 For example, if we needed to do better with those bots, one way to go was to
-keep track about a cumulative bot time on a player’s account in a database, and
-ban it some time into the future. Maybe an hour or two, maybe a day, or even a
-week.
+keep track of a cumulative bot time on a player’s account in a database and ban
+it some time into the future. Maybe an hour or two, maybe a day, or even a week.
 
 There is also a technique called “shadow ban”, that’s sometimes used on
 forums. For a shadowbanned person everything looks the same, they can view
 everything and post comments, just their responses are not visible to anyone
-else (except moderators), so they’re not causing stir on forum, and do not
+else (except moderators), so they’re not causing a stir on a forum, and do not
 launch attacks onto it from other places, because they do not perceive it as an
 attack on them.
 
-We could have employed something akin to shadow ban. Stop bots from interacting
+We could have employed something akin to a shadow ban. Stop bots from interacting
 with other users from time to time. Drop their packets a lot when they’re in a
 battlefield, so they and their party-members end up being killed by mobs.
 
 I don’t think it’s always possible to employ these delayed responses - anything
-financial and we’re out of luck? I’m totally not familiar with that field, never
-worked at a bank or a payment processor. Would be interesting to learn a bit
-about that.
+financial and we’re out of luck? I’m not familiar with that field, never worked
+at a bank or a payment processor. Would be interesting to learn a bit about
+that.
 
 So, back to classified ads. They could raise their defenses a bit, and with a
 clever shadow ban technique (mark messages as read when a recipient logs in,
@@ -75,11 +75,11 @@ seems like everything works, but people just don’t fall for a scam - will they
 continue to try more and more sophisticated attacks? To a certain extent, later
 they’ll get bored with having no results.
 
-We also need good anomaly detection mechanisms. It starts with a good logging
-and monitoring, and with user complaints, just like any other performance
-problem or a bug. Of course, later you can start to employ different machine
-learning techniques, but it shouldn’t be a first step, and you need to do it
-really carefully.
+We also need good anomaly detection mechanisms. It starts with good logging and
+monitoring, and with user complaints, just like any other performance problem or
+a bug. Of course, later you can start to employ different machine learning
+techniques, but it shouldn’t be the first step, and you need to do it really
+carefully.
 
 It’s very maddening for legit users to fall prey to some stupid algorithm that
 can be hard to fix. Gather more cases and re-train a model? Maybe employ
@@ -92,7 +92,7 @@ react quickly, identify new patterns, shadow ban them, etc.
 Sometimes it can be fixed by a product change. For example, if there is some
 kind of bonus system, make it so users can spend bonuses only on themselves,
 ship products paid with bonuses to the existing address only (that has a history
-of successful deliveries from given account), etc.
+of successful deliveries from a given account), etc.
 
 Removing an incentive to fraud is the best strategy.
 
@@ -100,7 +100,7 @@ After running a service for some time you’ll get a grip on how these things ar
 done.
 
 Even Twitter seemingly managed to remove that Bitcoin “ElonMuskque
-giveaways”. What took them so long I don’t really understand, but if even
-Twitter did it - you can do it too.
+giveaways”. What took them so long I don’t understand, but if even Twitter did
+it - you can do it too.
 
 Just do it.
