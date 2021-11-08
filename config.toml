@@ -2,6 +2,7 @@
 base_url = "https://vsevolod.net"
 title = "Vsevolod Solovyov"
 description = "Vsevolod Solovyov's blog"
+default_language = "en"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
