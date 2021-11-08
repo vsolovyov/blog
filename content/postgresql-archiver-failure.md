@@ -2,25 +2,26 @@
 title = "PostgreSQL archiver failure"
 date = 2021-11-08
 [extra]
-draft = true
+draft = false
 +++
 
 We've got an alert that disk space on a server with a production database is
 running low.
 
-We have a separate partition that stores PostgreSQL data (`/var/lib/postgres/`),
-so that nothing can interfere, and **this partition** was running low. Database
-size was pretty stable at 3.5 TB, but WALs were accumulating and we already had
-2+ terabytes of them. We have `archive_mode = on` ([docs
+We have a separate partition (and separate physical SSDs) that stores PostgreSQL
+data (`/var/lib/postgres/`), so that nothing can interfere with PG, and **this
+partition** was running low on free space. Database size was pretty stable at
+3.5 TB, but WALs were accumulating and we already had 2+ terabytes of them. We
+have `archive_mode = on` ([docs
 here](https://www.postgresql.org/docs/current/runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING))
-that sents completed WAL segments to archive storage by running
+that sends completed WAL segments to archive storage by running
 `archive_command` (we're using [wal-g](https://github.com/wal-g/wal-g) 0.22.2).
 Looks like it wasn't succeeding for some reason.
 
-Our monitoring suggested that it started on
-Thursday, around 12:30 UTC. We could afford to lose these WALs, so we tried to
-change `archive_command` to `/bin/true` and reload the config, but it did
-nothing and WALs kept accumulating, instead of disappearing right away.
+Our monitoring suggested that WAL accumulation started on Thursday, around 12:30
+UTC. We could afford to lose these WALs, so we tried to change `archive_command`
+to `/bin/true` and reload the config, but it did nothing and WALs kept
+accumulating, instead of disappearing like we expected them to.
 
 We turned off a write-heavy workload that generated most of those WALs to buy us
 more time and tried to understand what was happening. We looked through logs
