@@ -69,10 +69,11 @@ INFO: 2021/11/04 12:23:45.359512 FILE PATH: 000000010001AFCD000000F7.br
 ```
 
 Time corresponds nicely with our approximate timeline of 12:30 UTC from
-monitoring, where we start seeing disk usage starts trending upwards. There
-are errors with `000000010001AFCD000000EC` WAL segment, and indeed we didn't have
-`000000010001AFCD000000EC.br` in our backup location. Maybe Postgres archiver
-would have [tried up to three
+monitoring, where we start seeing disk usage starts trending upwards. There are
+errors with `000000010001AFCD000000EC` WAL segment, and indeed we didn't have
+`000000010001AFCD000000EC.br` in our backup location (we use Brotli to compress
+our WAL segments, hence `.br` extension). Maybe Postgres archiver would have
+[tried up to three
 times](https://github.com/postgres/postgres/blob/REL_13_STABLE/src/backend/postmaster/pgarch.c#L67)
 to re-upload it again if it wasn't stuck on `000000010001AFCD000000D6`.
 
