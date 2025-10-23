@@ -17,5 +17,5 @@ build_search_index = false
 generate_rss = true
 
 [extra]
-biography = "I'm a co-founder at [Prophy Science](https://www.prophy.science/). You can also find me on [Twitter](https://twitter.com/murkt)."
+biography = "I'm a co-founder at [Prophy.ai](https://www.prophy.ai/). You can also find me on [Twitter](https://twitter.com/murkt)."
 copyright = "© Vsevolod Solovyov"
